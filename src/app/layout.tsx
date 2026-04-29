@@ -8,7 +8,7 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Lumina Habit System",
+  title: "Habit System",
   description: "Modern habit tracking system",
 };
 
