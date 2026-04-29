@@ -67,7 +67,6 @@ export default function Dashboard() {
               <p className="text-on-surface-variant font-semibold tracking-wide uppercase text-xs mb-2">Welcome back</p>
               <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight">Good morning{sessionEmail ? `, ${sessionEmail.split('@')[0]}` : ''}</h2>
             </div>
-            {/* Streak Overview Card (Mocked visual flair from Stitch) */}
             <div className="glass-panel p-6 rounded-xl flex items-center gap-6 border-l-4 border-tertiary">
               <div className="bg-tertiary-container/20 p-3 rounded-full">
                 <span className="material-symbols-outlined text-tertiary text-3xl" data-icon="local_fire_department" style={{ fontVariationSettings: "'FILL' 1" }}>local_fire_department</span>

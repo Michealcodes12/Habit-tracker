@@ -11,12 +11,12 @@ export default function Signup() {
           <span className="text-2xl font-extrabold tracking-tighter text-primary font-sans">LUMINA</span>
         </div>
       </header>
-      <main className="flex-grow flex items-center justify-center p-6 pt-24 pb-12 overflow-hidden relative">
+      <main className="grow flex items-center justify-center p-6 pt-24 pb-12 overflow-hidden relative">
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute -top-[20%] -left-[10%] w-[60%] h-[60%] bg-primary/10 blur-[120px] rounded-full"></div>
-          <div className="absolute -bottom-[20%] -right-[10%] w-[50%] h-[50%] bg-secondary/10 blur-[100px] rounded-full"></div>
+          <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-primary/10 blur-[120px] rounded-full"></div>
+          <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-secondary/10 blur-[100px] rounded-full"></div>
         </div>
-        
+
         <div className="w-full max-w-[1100px] grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
           <div className="hidden md:flex flex-col gap-8">
             <div className="space-y-4">
@@ -36,7 +36,7 @@ export default function Signup() {
               </div>
             </div>
           </div>
-          
+
           <SignupForm />
         </div>
       </main>

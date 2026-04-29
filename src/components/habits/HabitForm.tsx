@@ -13,7 +13,7 @@ interface HabitFormProps {
 export default function HabitForm({ onSuccess, onCancel, initialHabit }: HabitFormProps) {
   const [name, setName] = useState(initialHabit?.name || '');
   const [description, setDescription] = useState(initialHabit?.description || '');
-  
+
   // UI-only states for Lumina design compliance (not saved to storage to maintain existing functionality)
   const [selectedIcon, setSelectedIcon] = useState('self_improvement');
   const [frequency, setFrequency] = useState('daily');
@@ -34,9 +34,9 @@ export default function HabitForm({ onSuccess, onCancel, initialHabit }: HabitFo
     const existingHabits = storage.getHabits();
 
     if (initialHabit) {
-      const updatedHabits = existingHabits.map(h => 
-        h.id === initialHabit.id 
-          ? { ...h, name: name.trim(), description: description.trim() } 
+      const updatedHabits = existingHabits.map(h =>
+        h.id === initialHabit.id
+          ? { ...h, name: name.trim(), description: description.trim() }
           : h
       );
       storage.saveHabits(updatedHabits);
@@ -66,14 +66,14 @@ export default function HabitForm({ onSuccess, onCancel, initialHabit }: HabitFo
       </header>
 
       <form id="habit-form" onSubmit={handleSubmit} className="pt-8 pb-32 px-6 max-w-2xl mx-auto space-y-10">
-        
+
         {/* Habit Name Input Section */}
         <section className="space-y-4">
           <label className="block text-sm font-bold text-on-surface-variant ml-1 uppercase tracking-widest">Name Your Habit</label>
           <div className="relative group">
-            <input 
-              className="w-full bg-surface-container-low border-0 border-b-2 border-outline-variant text-on-surface text-xl px-4 py-4 focus:outline-none focus:border-primary focus:bg-surface-container transition-all duration-300 rounded-t-xl placeholder:text-outline/50" 
-              placeholder="e.g., Morning Meditation" 
+            <input
+              className="w-full bg-surface-container-low border-0 border-b-2 border-outline-variant text-on-surface text-xl px-4 py-4 focus:outline-none focus:border-primary focus:bg-surface-container transition-all duration-300 rounded-t-xl placeholder:text-outline/50"
+              placeholder="e.g., Morning Meditation"
               type="text"
               data-testid="habit-form-name"
               value={name}
@@ -89,8 +89,8 @@ export default function HabitForm({ onSuccess, onCancel, initialHabit }: HabitFo
         <section className="space-y-4">
           <label className="block text-sm font-bold text-on-surface-variant ml-1 uppercase tracking-widest">Habit Description</label>
           <div className="relative group">
-            <textarea 
-              className="w-full bg-surface-container-low border-0 border-b-2 border-outline-variant text-on-surface text-lg px-4 py-4 focus:outline-none focus:border-primary focus:bg-surface-container transition-all duration-300 rounded-t-xl placeholder:text-outline/50 min-h-[120px] resize-none" 
+            <textarea
+              className="w-full bg-surface-container-low border-0 border-b-2 border-outline-variant text-on-surface text-lg px-4 py-4 focus:outline-none focus:border-primary focus:bg-surface-container transition-all duration-300 rounded-t-xl placeholder:text-outline/50 min-h-[120px] resize-none"
               placeholder="Add some details about your new habit..."
               data-testid="habit-form-description"
               value={description}
@@ -105,15 +105,14 @@ export default function HabitForm({ onSuccess, onCancel, initialHabit }: HabitFo
           <label className="block text-sm font-bold text-on-surface-variant ml-1 uppercase tracking-widest">Visual Anchor</label>
           <div className="grid grid-cols-4 sm:grid-cols-6 gap-3">
             {icons.map((icon) => (
-              <button 
+              <button
                 key={icon}
                 type="button"
                 onClick={() => setSelectedIcon(icon)}
-                className={`aspect-square flex items-center justify-center rounded-xl transition-all active:scale-95 ${
-                  selectedIcon === icon 
-                    ? "bg-primary/20 border border-primary/40 text-primary shadow-[0_0_20px_rgba(87,241,219,0.15)]" 
-                    : "bg-surface-container-low border border-white/5 text-on-surface-variant hover:text-primary hover:bg-white/5"
-                }`}
+                className={`aspect-square flex items-center justify-center rounded-xl transition-all active:scale-95 ${selectedIcon === icon
+                  ? "bg-primary/20 border border-primary/40 text-primary shadow-[0_0_20px_rgba(87,241,219,0.15)]"
+                  : "bg-surface-container-low border border-white/5 text-on-surface-variant hover:text-primary hover:bg-white/5"
+                  }`}
               >
                 <span className="material-symbols-outlined text-3xl" style={selectedIcon === icon ? { fontVariationSettings: "'FILL' 1" } : {}}>
                   {icon}
@@ -129,14 +128,14 @@ export default function HabitForm({ onSuccess, onCancel, initialHabit }: HabitFo
           <section className="space-y-4">
             <label className="block text-sm font-bold text-on-surface-variant ml-1 uppercase tracking-widest">Frequency</label>
             <div className="flex p-1 bg-surface-container-low rounded-xl border border-white/5">
-              <button 
+              <button
                 type="button"
                 onClick={() => setFrequency('daily')}
                 className={`flex-1 py-2 px-4 rounded-lg font-bold text-sm transition-all ${frequency === 'daily' ? 'bg-primary text-on-primary shadow-lg' : 'text-on-surface-variant hover:text-on-surface'}`}
               >
                 Daily
               </button>
-              <button 
+              <button
                 type="button"
                 onClick={() => setFrequency('weekly')}
                 className={`flex-1 py-2 px-4 rounded-lg font-bold text-sm transition-all ${frequency === 'weekly' ? 'bg-primary text-on-primary shadow-lg' : 'text-on-surface-variant hover:text-on-surface'}`}
@@ -151,9 +150,9 @@ export default function HabitForm({ onSuccess, onCancel, initialHabit }: HabitFo
             <label className="block text-sm font-bold text-on-surface-variant ml-1 uppercase tracking-widest">Reminder Time</label>
             <div className="flex items-center space-x-3 bg-surface-container-low border border-white/5 rounded-xl px-4 py-2 hover:border-primary/30 transition-colors group">
               <span className="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">schedule</span>
-              <input 
-                className="bg-transparent border-none text-on-surface text-lg font-bold outline-none w-full [color-scheme:dark]" 
-                type="time" 
+              <input
+                className="bg-transparent border-none text-on-surface text-lg font-bold outline-none w-full scheme:dark"
+                type="time"
                 value={time}
                 onChange={(e) => setTime(e.target.value)}
               />
@@ -178,17 +177,17 @@ export default function HabitForm({ onSuccess, onCancel, initialHabit }: HabitFo
         {/* Fixed Action Footer */}
         <footer className="fixed bottom-0 left-0 right-0 p-6 bg-background/90 backdrop-blur-xl border-t border-white/5 z-50">
           <div className="max-w-2xl mx-auto flex gap-4">
-            <button 
+            <button
               type="button"
               onClick={onCancel}
               className="flex-1 py-4 border border-outline-variant rounded-xl text-on-surface font-bold hover:bg-white/5 active:scale-95 transition-all"
             >
               Cancel
             </button>
-            <button 
+            <button
               type="submit"
               data-testid="habit-form-submit"
-              className="flex-[2] py-4 bg-primary text-on-primary font-extrabold rounded-xl shadow-[0_8px_30px_rgb(87,241,219,0.3)] hover:brightness-110 active:scale-95 transition-all"
+              className="flex-2 py-4 bg-primary text-on-primary font-extrabold rounded-xl shadow-[0_8px_30px_rgb(87,241,219,0.3)] hover:brightness-110 active:scale-95 transition-all"
             >
               {initialHabit ? 'Save Changes' : 'Create Habit'}
             </button>

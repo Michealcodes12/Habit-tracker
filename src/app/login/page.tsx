@@ -11,7 +11,7 @@ export default function Login() {
           <span className="text-2xl font-extrabold tracking-tighter text-primary font-sans">LUMINA</span>
         </div>
       </header>
-      <main className="flex-grow flex items-center justify-center px-4 pt-20 pb-12 relative overflow-hidden">
+      <main className="grow flex items-center justify-center px-4 pt-20 pb-12 relative overflow-hidden">
         {/* Visual Background Element */}
         <div className="fixed top-0 right-0 -z-10 w-full h-full overflow-hidden pointer-events-none opacity-40">
           <div className="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-primary/10 blur-[120px] rounded-full"></div>
