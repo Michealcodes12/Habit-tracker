@@ -14,3 +14,5 @@ export function toggleHabitCompletion(habit: Habit, date: string): Habit {
     completions: Array.from(completionsSet),
   };
 }
+
+

@@ -13,7 +13,7 @@ export function calculateCurrentStreak(completions: string[], today?: string): n
 
   for (const date of uniqueSorted) {
     if (date > currentToday) continue;
-    
+
     if (date === currentCheckDate) {
       streak++;
       // Calculate previous date

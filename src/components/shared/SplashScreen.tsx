@@ -22,7 +22,7 @@ export default function SplashScreen() {
         {/* Brand Identity */}
         <div className="space-y-4">
           <h1 className="text-5xl font-extrabold tracking-tighter text-primary font-sans">
-            LUMINA
+            HABIT-TRACKER
           </h1>
           <p className="text-lg text-on-surface-variant font-medium tracking-tight">
             Your path to mastery starts here

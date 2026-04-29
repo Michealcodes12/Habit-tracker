@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { storage } from '@/lib/storage';
 import { Habit } from '@/types/habit';
+import { calculateCurrentStreak } from '@/lib/streaks';
 import ProtectedRoute from '@/components/shared/ProtectedRoute';
 import HabitList from '@/components/habits/HabitList';
 import HabitForm from '@/components/habits/HabitForm';
@@ -36,6 +37,9 @@ export default function Dashboard() {
     initHabits();
   }, [loadHabits]);
 
+  const todayStr = new Date().toISOString().split('T')[0];
+  const globalStreak = habits.length > 0 ? Math.max(...habits.map(h => calculateCurrentStreak(h.completions, todayStr))) : 0;
+
   return (
     <ProtectedRoute>
       <div className="bg-background text-on-background min-h-screen">
@@ -44,10 +48,10 @@ export default function Dashboard() {
             <button className="text-primary hover:bg-white/5 active:scale-95 transition-all duration-200 p-2 rounded-lg">
               <span className="material-symbols-outlined" data-icon="grid_view">grid_view</span>
             </button>
-            <h1 className="text-2xl font-black text-primary tracking-tighter font-sans">Lumina</h1>
+            <h1 className="text-2xl font-black text-primary tracking-tighter font-sans">H-T</h1>
           </div>
           <div className="flex items-center gap-4">
-            <button onClick={handleLogout} className="text-on-surface hover:text-primary transition-colors text-sm font-semibold uppercase tracking-widest" data-testid="auth-logout-button">
+            <button onClick={handleLogout} className="text-on-surface hover:text-primary transition-colors text-sm font-semibold uppercase tracking-widest border-primary px-4 py-2 rounded-full border-2" data-testid="auth-logout-button">
               Logout
             </button>
             <div className="w-10 h-10 rounded-full border-2 border-primary/20 bg-primary-container/20 flex items-center justify-center text-primary font-bold">
@@ -70,7 +74,7 @@ export default function Dashboard() {
               </div>
               <div>
                 <p className="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Global Mastery</p>
-                <p className="text-3xl font-black text-on-surface">14 Day Streak</p>
+                <p className="text-3xl font-black text-on-surface">{globalStreak} Day Streak</p>
               </div>
             </div>
           </section>
@@ -107,7 +111,7 @@ export default function Dashboard() {
                 </button>
               )}
             </div>
-            
+
             {isCreating && (
               <HabitForm
                 onSuccess={() => {
