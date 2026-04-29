@@ -1,46 +1,34 @@
 "use client";
 
-
 export default function SplashScreen() {
   return (
     <div
-      className="fixed inset-0 bg-slate-900 z-50 overflow-hidden font-sans"
+      className="fixed inset-0 bg-background z-50 overflow-hidden flex flex-col items-center justify-center text-on-surface"
       data-testid="splash-screen"
+      style={{
+        backgroundImage: 'radial-gradient(at 0% 0%, rgba(5, 102, 217, 0.15) 0px, transparent 50%), radial-gradient(at 100% 100%, rgba(87, 241, 219, 0.1) 0px, transparent 50%)'
+      }}
     >
-      {/* Minimalist Path Graphic */}
-      <svg
-        viewBox="0 0 375 400"
-        className="absolute top-[20%] left-0 w-full h-auto text-slate-300/80"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M0 120 C 50 145, 80 150, 110 160 C 140 170, 150 175, 175 175 C 230 175, 260 170, 290 175 C 310 180, 310 205, 330 210 C 350 215, 365 210, 375 210"
-          stroke="currentColor"
-          strokeWidth="1.5"
-        />
-
-        {/* First small solid dot */}
-        <circle cx="80" cy="151" r="3.5" fill="currentColor" />
-
-        {/* Main prominent circle with dot */}
-        <circle cx="175" cy="175" r="22" stroke="currentColor" strokeWidth="1.5" />
-        <circle cx="175" cy="175" r="7" fill="currentColor" />
-
-        {/* Middle small empty circle */}
-        <circle cx="270" cy="173" r="4.5" stroke="currentColor" strokeWidth="1.5" fill="#0f172a" />
-
-        {/* Right small empty circle */}
-        <circle cx="325" cy="208" r="4.5" stroke="currentColor" strokeWidth="1.5" />
-      </svg>
-
-      {/* Typography */}
-      <div className="absolute bottom-32 left-10 flex flex-col items-start animate-pulse">
-        <h1 className="text-5xl font-extrabold text-white tracking-tight mt-1">
-          Habit Tracker
-        </h1>
-        <p className="text-slate-400">Build better habits, one day at a time.</p>
+      {/* Decorative Elements */}
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none z-0 opacity-20">
+        <div className="absolute top-[10%] left-[10%] w-1 h-1 bg-primary rounded-full blur-[1px]"></div>
+        <div className="absolute top-[20%] right-[15%] w-1 h-1 bg-secondary rounded-full blur-[1px]"></div>
+        <div className="absolute bottom-[30%] left-[20%] w-1 h-1 bg-tertiary rounded-full blur-[1px]"></div>
+        <div className="absolute top-[60%] right-[5%] w-1 h-1 bg-primary rounded-full blur-[1px]"></div>
       </div>
+
+      {/* Main Content Canvas */}
+      <main className="relative z-10 flex flex-col items-center justify-center px-6 text-center max-w-md w-full animate-pulse duration-1000">
+        {/* Brand Identity */}
+        <div className="space-y-4">
+          <h1 className="text-5xl font-extrabold tracking-tighter text-primary font-sans">
+            LUMINA
+          </h1>
+          <p className="text-lg text-on-surface-variant font-medium tracking-tight">
+            Your path to mastery starts here
+          </p>
+        </div>
+      </main>
     </div>
   );
 }

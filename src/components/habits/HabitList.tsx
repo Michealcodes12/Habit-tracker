@@ -1,34 +1,91 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Habit } from '@/types/habit';
+import HabitCard from './HabitCard';
+import HabitForm from './HabitForm';
+import ConfirmDeleteModal from '../shared/ConfirmDeleteModal';
+import { storage } from '@/lib/storage';
+import { toggleHabitCompletion } from '@/lib/habits';
 
 interface HabitListProps {
   habits: Habit[];
   onOpenCreate: () => void;
+  onUpdate: () => void;
 }
 
-export default function HabitList({ habits, onOpenCreate }: HabitListProps) {
+export default function HabitList({ habits, onOpenCreate, onUpdate }: HabitListProps) {
+  const [editingHabit, setEditingHabit] = useState<Habit | null>(null);
+  const [deletingHabitId, setDeletingHabitId] = useState<string | null>(null);
+
+  const handleToggle = (habit: Habit) => {
+    const today = new Date().toISOString().split('T')[0];
+    const updatedHabit = toggleHabitCompletion(habit, today);
+    const existingHabits = storage.getHabits();
+    const updatedHabits = existingHabits.map((h) => h.id === habit.id ? updatedHabit : h);
+    storage.saveHabits(updatedHabits);
+    onUpdate();
+  };
+
+  const handleDeleteClick = (habitId: string) => {
+    setDeletingHabitId(habitId);
+  };
+
+  const handleConfirmDelete = () => {
+    if (deletingHabitId) {
+      const existingHabits = storage.getHabits();
+      const updatedHabits = existingHabits.filter((h) => h.id !== deletingHabitId);
+      storage.saveHabits(updatedHabits);
+      setDeletingHabitId(null);
+      onUpdate();
+    }
+  };
+
+  const handleCancelDelete = () => {
+    setDeletingHabitId(null);
+  };
+
   if (habits.length === 0) {
     return (
-      <div className="text-center py-16 bg-white dark:bg-slate-800/50 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
-        <p className="text-slate-500 dark:text-slate-400 mb-2">No habits found.</p>
+      <div className="text-center py-16 bg-surface-container rounded-xl border border-white/5 shadow-sm">
+        <p className="text-on-surface-variant mb-2 font-bold tracking-wide">No active habits found.</p>
         <button
           onClick={onOpenCreate}
-          className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 font-medium transition"
+          className="text-primary hover:text-primary/80 font-bold uppercase tracking-widest text-sm transition-colors"
         >
-          Create one to get started!
+          Create one to begin
         </button>
       </div>
     );
   }
 
   return (
-    <ul className="space-y-4">
-      {habits.map((habit) => (
-        <li key={habit.id} className="p-5 border rounded-2xl shadow-sm bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700">
-          <h3 className="font-bold text-lg text-slate-900 dark:text-white mb-1">{habit.name}</h3>
-          <p className="text-sm text-slate-600 dark:text-slate-400">{habit.description}</p>
-        </li>
-      ))}
-    </ul>
+    <div className="space-y-4">
+      {editingHabit && (
+        <HabitForm
+          initialHabit={editingHabit}
+          onSuccess={() => {
+            setEditingHabit(null);
+            onUpdate();
+          }}
+          onCancel={() => setEditingHabit(null)}
+        />
+      )}
+      {deletingHabitId && (
+        <ConfirmDeleteModal
+          onConfirm={handleConfirmDelete}
+          onCancel={handleCancelDelete}
+        />
+      )}
+      <ul className="space-y-4">
+        {habits.map((habit) => (
+          <HabitCard
+            key={habit.id}
+            habit={habit}
+            onToggle={handleToggle}
+            onEdit={setEditingHabit}
+            onDelete={handleDeleteClick}
+          />
+        ))}
+      </ul>
+    </div>
   );
 }
